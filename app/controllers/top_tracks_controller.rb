@@ -6,7 +6,12 @@ class TopTracksController < ApplicationController
   # GET /top_tracks
   # GET /top_tracks.json
   def index
-    @top_tracks = TopTrack.all
+    if params[:search]
+      @top_tracks = TopTrack.where('track_name LIKE ?', "%#{params[:search]}%")
+    else
+      @top_tracks = TopTrack.all
+    end
+
   end
 
   # GET /top_tracks/1
@@ -18,6 +23,7 @@ class TopTracksController < ApplicationController
   def new
     @top_track = TopTrack.new
   end
+
 
   # GET /top_tracks/1/edit
   def edit
@@ -71,7 +77,7 @@ class TopTracksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def top_track_params
-      params.require(:top_track).permit(:track_name, :album_name, :personal_ranking)
+      params.require(:top_track).permit(:track_name, :album_name, :personal_ranking, :search)
     end
-  
+
 end
