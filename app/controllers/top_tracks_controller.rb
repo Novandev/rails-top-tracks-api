@@ -73,4 +73,5 @@ class TopTracksController < ApplicationController
     def top_track_params
       params.require(:top_track).permit(:track_name, :album_name, :personal_ranking)
     end
+  
 end
